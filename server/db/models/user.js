@@ -26,6 +26,29 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
+  },
+  fname: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  lname: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  address: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  phone: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
+  imageUrl: {
+    type: Sequelize.STRING
   }
 })
 
@@ -56,6 +79,13 @@ User.encryptPassword = function(plainText, salt) {
 /**
  * hooks
  */
+const setUserImage = user => {
+  if (user.imageUrl === '') {
+    user.imageUrl =
+      'https://www.pinclipart.com/picdir/middle/124-1243030_man-silhouette-vector-15-buy-clip-art-sitting.png'
+  }
+}
+
 const setSaltAndPassword = user => {
   if (user.changed('password')) {
     user.salt = User.generateSalt()
@@ -63,7 +93,11 @@ const setSaltAndPassword = user => {
   }
 }
 
-User.beforeCreate(setSaltAndPassword)
+User.beforeCreate(user => {
+  setSaltAndPassword(user)
+  setUserImage(user)
+})
+
 User.beforeUpdate(setSaltAndPassword)
 User.beforeBulkCreate(users => {
   users.forEach(setSaltAndPassword)
