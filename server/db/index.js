@@ -1,6 +1,10 @@
+// consider deleting file
 const db = require('./db')
 
 // register models
-require('./models')
+const Products = require('./models/Products')
+const user = require('./models/user')
 
-module.exports = db
+// associations
+
+module.exports = {db, Products, user}
