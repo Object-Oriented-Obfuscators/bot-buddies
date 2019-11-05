@@ -3,8 +3,8 @@ const db = require('./db')
 
 // register models
 const Products = require('./models/Products')
-const Users = require('./models/Users')
+const user = require('./models/user')
 
 // associations
 
-module.exports = {db, Products, Users}
+module.exports = {db, Products, user}

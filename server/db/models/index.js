@@ -1,5 +1,5 @@
 const db = require('../db')
-const Users = require('../models/Users')
+const user = require('../models/user')
 const Products = require('../models/Products')
 
 /**
@@ -16,7 +16,7 @@ const Products = require('../models/Products')
  * instead of: const User = require('../db/models/user')
  */
 module.exports = {
-  Users,
+  user,
   Products,
   db
 }
