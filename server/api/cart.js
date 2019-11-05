@@ -31,12 +31,11 @@ router.post('/', async (req, res, next) => {
       }
       req.session.cartId = newCart.id
     }
-
-    cart = await CartsProducts.create({
-      cartId: req.session.cartId,
-      qty: req.body.qty,
-      productId: req.body.productId
+    let product = await Products.findByPk(req.body.productId)
+    cart = await Carts.findByPk(req.session.cartId, {
+      include: {model: Products}
     })
+    cart.addProducts(product)
     res.send(cart)
   } catch (error) {
     next(error)
@@ -44,16 +43,3 @@ router.post('/', async (req, res, next) => {
 })
 
 module.exports = router
-
-// else {
-//   //Create a new instance of a cart, and attach the cart's id to the current session
-//   cart = await Carts.create()
-//   req.session.cartId = cart.id
-//   //If a user is logged in, also add that user's id to the instance
-// }
-// if (req.user) {
-//   cart.userId = req.user.id
-//   cart.save().then(updatedCart => res.send(updatedCart))
-// } else {
-//   res.send(cart)
-// }
