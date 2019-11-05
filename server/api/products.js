@@ -14,12 +14,15 @@ router.get('/', async (req, res, next) => {
 })
 
 // route for single product view
-// router.get('/:id', async(req, res, next) => {
-//   try {
-//     Products.findById(req.params.id)
-//   } catch (error) {
-//       next(error)
-//   }
-// })
+router.get('/:id', async (req, res, next) => {
+  try {
+    await Products.findByPk(req.params.id).then(product => {
+      if (!product) return res.sendStatus(404)
+      res.send(product)
+    })
+  } catch (error) {
+    next(error)
+  }
+})
 
 module.exports = router
