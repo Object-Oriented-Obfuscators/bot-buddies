@@ -12,12 +12,13 @@ class SingleProduct extends Component {
   }
 
   render() {
-    console.log('tthis is props', this.props.singleProduct)
     return (
       Object.keys(this.props.singleProduct) && (
         <div>
           <p>{`${this.props.singleProduct.name}`}</p>
+          <p>{`${this.props.singleProduct.price}`}</p>
           <img src={this.props.singleProduct.imageUrl} />
+          <p>{`${this.props.singleProduct.description}`}</p>
         </div>
       )
     )
