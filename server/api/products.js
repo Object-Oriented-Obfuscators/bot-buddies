@@ -13,4 +13,13 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+// route for single product view
+// router.get('/:id', async(req, res, next) => {
+//   try {
+//     Products.findById(req.params.id)
+//   } catch (error) {
+//       next(error)
+//   }
+// })
+
 module.exports = router

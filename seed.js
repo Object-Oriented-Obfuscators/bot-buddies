@@ -10,54 +10,16 @@ const products = [
     description:
       'Hugs are a little cold and metallic, but cold hugs are better than no hugs!',
     imageUrl:
-      'https://vignette.wikia.nocookie.net/starwars/images/a/a9/Probe_Droid_FDGMK.png/revision/latest?cb=20190304145014',
+      'https://vignette.wikia.nocookie.net/starwars/images/0/05/Probe_Droid_SWB.png/revision/latest?cb=20151115014524',
     price: 399.99,
     stock: 3
   },
   {
-    name: 'Hug Bot',
-    description:
-      'Hugs are a little cold and metallic, but cold hugs are better than no hugs!',
-    imageUrl:
-      'https://vignette.wikia.nocookie.net/starwars/images/a/a9/Probe_Droid_FDGMK.png/revision/latest?cb=20190304145014',
-    price: 399.99,
-    stock: 3
-  },
-  {
-    name: 'Hug Bot',
-    description:
-      'Hugs are a little cold and metallic, but cold hugs are better than no hugs!',
-    imageUrl:
-      'https://vignette.wikia.nocookie.net/starwars/images/a/a9/Probe_Droid_FDGMK.png/revision/latest?cb=20190304145014',
-    price: 399.99,
-    stock: 3
-  },
-  {
-    name: 'Hug Bot',
-    description:
-      'Hugs are a little cold and metallic, but cold hugs are better than no hugs!',
-    imageUrl:
-      'https://vignette.wikia.nocookie.net/starwars/images/a/a9/Probe_Droid_FDGMK.png/revision/latest?cb=20190304145014',
-    price: 399.99,
-    stock: 3
-  },
-  {
-    name: 'Hug Bot',
-    description:
-      'Hugs are a little cold and metallic, but cold hugs are better than no hugs!',
-    imageUrl:
-      'https://vignette.wikia.nocookie.net/starwars/images/a/a9/Probe_Droid_FDGMK.png/revision/latest?cb=20190304145014',
-    price: 399.99,
-    stock: 3
-  },
-  {
-    name: 'Hug Bot',
-    description:
-      'Hugs are a little cold and metallic, but cold hugs are better than no hugs!',
-    imageUrl:
-      'https://vignette.wikia.nocookie.net/starwars/images/a/a9/Probe_Droid_FDGMK.png/revision/latest?cb=20190304145014',
-    price: 399.99,
-    stock: 3
+    name: 'Fancy Bot',
+    description: `Impress your parents with this shiny gold bot! They'll finally think you're successfull! ...maybe.`,
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/5/5c/C-3PO_droid.png',
+    price: 3999.99,
+    stock: 1
   }
 ]
 
