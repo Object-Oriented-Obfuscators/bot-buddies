@@ -12,6 +12,40 @@ const AuthForm = props => {
   return (
     <div>
       <form onSubmit={handleSubmit} name={name}>
+        {name === 'signup' && (
+          <span>
+            <div>
+              <label htmlFor="fname">
+                <small>First Name</small>
+              </label>
+              <input name="fname" type="text" />
+            </div>
+            <div>
+              <label htmlFor="lname">
+                <small>Last Name</small>
+              </label>
+              <input name="lname" type="text" />
+            </div>
+            <div>
+              <label htmlFor="address">
+                <small>Address</small>
+              </label>
+              <input name="address" type="text" />
+            </div>
+            <div>
+              <label htmlFor="phone">
+                <small>Phone</small>
+              </label>
+              <input name="phone" type="text" />
+            </div>
+            <div>
+              <label htmlFor="imageUrl">
+                <small>Profile Picture URL</small>
+              </label>
+              <input name="imageUrl" type="text" />
+            </div>
+          </span>
+        )}
         <div>
           <label htmlFor="email">
             <small>Email</small>
@@ -61,10 +95,18 @@ const mapDispatch = dispatch => {
   return {
     handleSubmit(evt) {
       evt.preventDefault()
+      const userData = {}
       const formName = evt.target.name
-      const email = evt.target.email.value
-      const password = evt.target.password.value
-      dispatch(auth(email, password, formName))
+      userData.email = evt.target.email.value
+      userData.password = evt.target.password.value
+      if (formName === 'signup') {
+        userData.fname = evt.target.fname.value
+        userData.lname = evt.target.lname.value
+        userData.address = evt.target.address.value
+        userData.phone = evt.target.phone.value
+        userData.imageUrl = evt.target.imageUrl.value
+      }
+      dispatch(auth(userData, formName))
     }
   }
 }
