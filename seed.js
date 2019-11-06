@@ -3,6 +3,12 @@ const {green, red} = require('chalk')
 
 const Products = require('./server/db/models/Products')
 const Users = require('./server/db/models/user')
+const {Carts} = require('./server/db/models')
+
+const carts = [
+  {date: new Date(), total: 250.0},
+  {date: new Date(), total: 150.0}
+]
 
 const products = [
   {
@@ -19,6 +25,14 @@ const products = [
     description: `Impress your parents with this shiny gold bot! They'll finally think you're successfull! ...maybe.`,
     imageUrl: 'https://upload.wikimedia.org/wikipedia/en/5/5c/C-3PO_droid.png',
     price: 3999.99,
+    stock: 1
+  },
+  {
+    name: 'Chef Gordon RamBot',
+    description: `Is your kitchen a nightmare? Have a fancy feast already prepared for you when you come home from work! Cussing module sold separately.`,
+    imageUrl:
+      'https://static01.nyt.com/images/2010/02/24/dining/24robots-2/24robots_CA1-articleLarge.jpg',
+    price: 99999.99,
     stock: 1
   }
 ]
@@ -57,6 +71,12 @@ const users = [
 
 const seed = async () => {
   await db.sync({force: true})
+
+  await Promise.all(
+    carts.map(cart => {
+      return Carts.create(cart)
+    })
+  )
 
   await Promise.all(
     products.map(product => {
