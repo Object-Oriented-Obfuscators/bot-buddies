@@ -29,8 +29,10 @@ router.post('/', async (req, res, next) => {
     if (!product) {
       res.status(404).send('Product Does Not Exist')
     } else {
+      const cart = await Carts.findByPk(req.session.cartId)
+
       // If this is a new session, create a new cart
-      if (!req.session.cartId) {
+      if (!req.session.cartId || !cart) {
         // If user is logged in, the new cart will contain the user's info
         if (req.user) {
           newCart = await Carts.create({userId: req.user.id})
