@@ -16,7 +16,7 @@ router.get('/', async (req, res, next) => {
 // route for single product view
 router.get('/:id', async (req, res, next) => {
   try {
-    await Products.findByPk(req.params.id).then(product => {
+    await Products.findByPk(req.params.id).then(product => { // remove .then & just assign to variable
       if (!product) return res.sendStatus(404)
       res.send(product)
     })

@@ -29,7 +29,7 @@ export const editCart = product => {
 
 // Thunk Creator
 
-export const getCart = () => async dispatch => {
+export const getCart = () => async dispatch => { // try/catches here
   const {data} = await axios.get('/api/cart')
   dispatch(gotCart(data))
 }
@@ -54,7 +54,7 @@ const cartReducer = (cart = [], action) => {
       let replaced = false
       let newCart = [...cart]
       // loop through the cart to find product with outdated qty
-      for (let i = 0; i < newCart.length; i++) {
+      for (let i = 0; i < newCart.length; i++) { // could be worthwhile to use some array methods here
         if (newCart[i].productId === action.product.productId) {
           newCart[i] = action.product
           replaced = true

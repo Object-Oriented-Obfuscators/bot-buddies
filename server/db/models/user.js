@@ -62,7 +62,7 @@ const User = db.define('user', {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   },
-  imageUrl: {
+  imageUrl: { // validators & defaultValue maybe
     type: Sequelize.STRING
   }
 })

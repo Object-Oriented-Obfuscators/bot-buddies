@@ -27,23 +27,23 @@ router.post('/', async (req, res, next) => {
     const product = await Products.findByPk(req.body.id)
 
     if (!product) {
-      res.status(404).send('Product Does Not Exist')
+      res.status(404).send('Product Does Not Exist') // niceee
     } else {
       const cart = await Carts.findByPk(req.session.cartId)
 
       // If this is a new session, create a new cart
-      if (!req.session.cartId || !cart) {
+      if (!req.session.cartId || !cart) { // could probably use middleware for this too
         // If user is logged in, the new cart will contain the user's info
-        if (req.user) {
+        if (req.user) { // turn this into middleware
           newCart = await Carts.create({userId: req.user.id})
         } else {
           // Else, client is a quest. Create the new cart with no user info
           newCart = await Carts.create()
         }
-        req.session.cartId = newCart.id
+        req.session.cartId = newCart.id // don't depend on sessions to hold your cartId for you
       }
 
-      let productInCart = await CartsProducts.findOne({
+      let productInCart = await CartsProducts.findOne({ // use findOrCreate.
         where: {
           cartId: req.session.cartId,
           productId: product.id

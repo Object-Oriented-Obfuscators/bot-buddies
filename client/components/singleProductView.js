@@ -13,7 +13,7 @@ class SingleProduct extends Component {
 
   render() {
     return (
-      Object.keys(this.props.singleProduct) && (
+      Object.keys(this.props.singleProduct) && ( // probably don't need to do Object.keys to do this & could just check for props.singleProduct
         <div>
           <p>{`${this.props.singleProduct.name}`}</p>
           <p>{`${this.props.singleProduct.price}`}</p>

@@ -18,17 +18,17 @@ const Products = db.define('products', {
       notEmpty: true
     }
   },
-  description: {
+  description: { // validations
     type: Sequelize.TEXT
   },
   price: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.FLOAT, // be vewwyyyyyyy careful with calculating prices
     allowNull: false,
     validate: {
       notEmpty: true
     }
   },
-  stock: {
+  stock: { // min value
     type: Sequelize.INTEGER,
     allowNull: false
   }

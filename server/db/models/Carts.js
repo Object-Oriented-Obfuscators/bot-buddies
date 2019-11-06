@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Carts = db.define('carts', {
+const Carts = db.define('carts', { // don't use null values to verify cart
   date: Sequelize.DATE,
   total: Sequelize.FLOAT
 })
