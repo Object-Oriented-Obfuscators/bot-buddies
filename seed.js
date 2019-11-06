@@ -26,6 +26,14 @@ const products = [
     imageUrl: 'https://upload.wikimedia.org/wikipedia/en/5/5c/C-3PO_droid.png',
     price: 3999.99,
     stock: 1
+  },
+  {
+    name: 'Chef Gordon RamBot',
+    description: `Is your kitchen a nightmare? Have a fancy feast already prepared for you when you come home from work! Cussing module sold separately.`,
+    imageUrl:
+      'https://static01.nyt.com/images/2010/02/24/dining/24robots-2/24robots_CA1-articleLarge.jpg',
+    price: 99999.99,
+    stock: 1
   }
 ]
 
