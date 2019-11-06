@@ -69,4 +69,17 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+router.put('/', async (req, res, next) => {
+  await Promise.all(
+    req.body.changes.map(change => {
+      return CartsProducts.update(
+        {qty: change.qty},
+        {where: {cartId: change.cartId, productId: change.productId}}
+      )
+    })
+  )
+  let data = await CartsProducts.findAll({where: {cartId: req.session.cartId}})
+  res.send(data)
+})
+
 module.exports = router

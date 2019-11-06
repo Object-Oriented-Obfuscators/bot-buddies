@@ -4,19 +4,31 @@ import {getCart} from '../store/cart'
 import Product from './Product'
 
 class DisconnectedCart extends Component {
+  constructor(props) {
+    super()
+    this.loaded = false
+  }
   componentDidMount() {
     this.props.getCart()
+    this.loaded = true
   }
 
   render() {
     let {products} = this.props.cart
     return (
-      <ul id="cart">
-        {products &&
+      <div id="cart">
+        {!this.loaded ? (
+          <div>Loading...</div>
+        ) : this.loaded && !products.length ? (
+          <div>Your cart is empty!</div>
+        ) : (
+          products &&
+          this.loaded &&
           products.map(product => {
             return <Product key={product.id} product={product} mode="cart" />
-          })}
-      </ul>
+          })
+        )}
+      </div>
     )
   }
 }
