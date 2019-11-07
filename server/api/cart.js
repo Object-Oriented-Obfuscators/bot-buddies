@@ -76,7 +76,12 @@ router.post('/', async (req, res, next) => {
       productInCart.qty += 1
       productInCart = await productInCart.save()
     }
-    res.send(productInCart)
+    res.send(
+      await Orders.findOne({
+        where: {id: req.session.orderId},
+        include: {model: Products}
+      })
+    )
   } catch (error) {
     next(error)
   }
@@ -91,8 +96,9 @@ router.put('/', async (req, res, next) => {
       )
     })
   )
-  let data = await OrdersProducts.findAll({
-    where: {orderId: req.session.orderId}
+  let data = await Orders.findOne({
+    where: {id: req.session.orderId},
+    include: {model: Products}
   })
   res.send(data)
 })
