@@ -7,8 +7,8 @@ router.put('/', async (req, res, next) => {
     const cart = await Carts.findByPk(req.session.cartId, {
       include: [{model: Products}]
     })
-    console.log(cart)
     res.send(cart)
+    console.log(cart)
 
     // await Carts.update(
     //   {
