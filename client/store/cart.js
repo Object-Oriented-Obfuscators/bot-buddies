@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {runInNewContext} from 'vm'
 
 // Action Type
 const GET_CART = 'GET_CART'
@@ -20,29 +21,42 @@ export const addToCart = product => {
   }
 }
 
-export const editCart = product => {
+// changes  = {changes: [{qty, prodId, cartId}, {}...]}
+export const editCart = cart => {
   return {
     type: EDIT_CART,
-    product
+    cart
   }
 }
 
 // Thunk Creator
 
 export const getCart = () => async dispatch => {
-  const {data} = await axios.get('/api/cart')
-  dispatch(gotCart(data))
+  try {
+    const {data} = await axios.get('/api/cart')
+    dispatch(gotCart(data))
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 export const addToCartThunk = product => async dispatch => {
-  const {data} = await axios.post('/api/cart', product)
-  dispatch(addToCart(data))
+  try {
+    const {data} = await axios.post('/api/cart', product)
+    dispatch(addToCart(data))
+  } catch (error) {
+    console.error(error)
+  }
 }
 
-// export const editCartThunk = product => async dispatch => {
-//   const {data} = await axios.put('/api/cart', product)
-//   dispatch(editCart(data))
-// }
+export const editCartThunk = changes => async dispatch => {
+  try {
+    const {data} = await axios.put('/api/cart', changes)
+    dispatch(editCart(data))
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 // reducer
 
@@ -51,22 +65,32 @@ const cartReducer = (cart = [], action) => {
     case GET_CART:
       return action.cart
     case ADD_TO_CART: {
-      let replaced = false
       let newCart = [...cart]
-      // loop through the cart to find product with outdated qty
-      for (let i = 0; i < newCart.length; i++) {
-        if (newCart[i].productId === action.product.productId) {
-          newCart[i] = action.product
-          replaced = true
-          break
-        }
-      }
-      // if no product is found, then add the product to the cart
-      if (!replaced) {
+      // let replaced = false
+      // // loop through the cart to find product with outdated qty
+      // for (let i = 0; i < newCart.length; i++) {
+      //   if (newCart[i].productId === action.product.productId) {
+      //     newCart[i] = action.product
+      //     replaced = true
+      //     break
+      //   }
+      // }
+      // // if no product is found, then add the product to the cart
+      // if (!replaced) {
+      //   newCart.push(action.product)
+      // }
+      const indexToReplace = newCart.findIndex(
+        product => product.productId === action.product.productId
+      )
+      if (indexToReplace === -1) {
         newCart.push(action.product)
+      } else {
+        newCart[indexToReplace] = action.product
       }
-
       return newCart
+    }
+    case EDIT_CART: {
+      return action.cart
     }
     default:
       return cart

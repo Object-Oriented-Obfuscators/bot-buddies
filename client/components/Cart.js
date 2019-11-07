@@ -6,13 +6,30 @@ import Product from './Product'
 class DisconnectedCart extends Component {
   constructor(props) {
     super()
+    this.state = {
+      changes: []
+    }
     this.loaded = false
+    this.handleChange = this.handleChange.bind(this)
   }
   componentDidMount() {
     this.props.getCart()
     this.loaded = true
   }
-
+  handleChange(evt, product) {
+    let qty = evt.target.value
+    let cartId = this.props.cart.id
+    let productId = product.id
+    let changedProduct = {
+      qty,
+      cartId,
+      productId
+    }
+    let newChanges = [...this.state.changes]
+    // for (let i = 0; i < newChanges.length; i++){
+    //   if(newChanges[i].productId === )
+    // }
+  }
   render() {
     let {products} = this.props.cart
     return (
@@ -25,7 +42,14 @@ class DisconnectedCart extends Component {
           products &&
           this.loaded &&
           products.map(product => {
-            return <Product key={product.id} product={product} mode="cart" />
+            return (
+              <Product
+                key={product.id}
+                product={product}
+                mode="cart"
+                handleChange={this.handleChange}
+              />
+            )
           })
         )}
       </div>
