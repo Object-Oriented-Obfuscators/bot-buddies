@@ -19,7 +19,11 @@ const Products = db.define('products', {
     }
   },
   description: {
-    type: Sequelize.TEXT
+    type: Sequelize.TEXT,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   },
   price: {
     type: Sequelize.FLOAT,
