@@ -3,12 +3,9 @@ const {green, red} = require('chalk')
 
 const Products = require('./server/db/models/Products')
 const Users = require('./server/db/models/user')
-const {Carts} = require('./server/db/models')
+const {Orders} = require('./server/db/models')
 
-const carts = [
-  {date: new Date(), total: 250.0},
-  {date: new Date(), total: 150.0}
-]
+const orders = [{}, {}]
 
 const products = [
   {
@@ -73,8 +70,8 @@ const seed = async () => {
   await db.sync({force: true})
 
   await Promise.all(
-    carts.map(cart => {
-      return Carts.create(cart)
+    orders.map(order => {
+      return Orders.create(order)
     })
   )
 
