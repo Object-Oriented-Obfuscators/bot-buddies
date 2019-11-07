@@ -36,7 +36,7 @@ class DisconnectedCart extends Component {
       <div id="cart">
         {!this.loaded ? (
           <div>Loading...</div>
-        ) : this.loaded && !products.length ? (
+        ) : this.loaded && !products ? (
           <div>Your cart is empty!</div>
         ) : (
           products &&

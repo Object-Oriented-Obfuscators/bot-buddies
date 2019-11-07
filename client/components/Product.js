@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 
 const Product = props => {
   const {mode} = props
+  console.log('PROPS---->', props)
   return (
     <div className="product row">
       <div className="column">
@@ -12,10 +13,9 @@ const Product = props => {
           <div>
             Quantity:
             <input
-              placeholder={props.product.CartsProducts.qty}
+              placeholder={props.product.OrdersProducts.qty}
               onChange={props.handleChange}
             />
-            {props.product.CartsProducts.qty}
           </div>
         )}
         <Link to={`/products/${props.product.id}`}>

@@ -33,8 +33,9 @@ router.get('/', async (req, res, next) => {
   let order
   try {
     if (req.session.orderId) {
-      order = await OrdersProducts.findAll({
-        where: {orderId: req.session.orderId}
+      order = await Orders.findOne({
+        where: {id: req.session.orderId},
+        include: {model: Products}
       })
       if (!order) {
         res.sendStatus(404)
