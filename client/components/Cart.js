@@ -1,16 +1,17 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getCart, removeFromCart} from '../store/cart'
+import {getCart, removeFromCart, editCartThunk} from '../store/cart'
 import Product from './Product'
 
 class DisconnectedCart extends Component {
-  constructor(props) {
+  constructor() {
     super()
     this.state = {
       changes: []
     }
     this.loaded = false
     this.handleChange = this.handleChange.bind(this)
+    this.submitHandler = this.submitHandler.bind(this)
   }
   componentDidMount() {
     this.props.getCart()
@@ -18,25 +19,37 @@ class DisconnectedCart extends Component {
   }
   handleChange(evt, product) {
     let qty = evt.target.value
-    let cartId = this.props.cart.id
+    let orderId = this.props.cart.id
     let productId = product.id
     let changedProduct = {
       qty,
-      cartId,
+      orderId,
       productId
     }
-    let newChanges = [...this.state.changes]
-    // for (let i = 0; i < newChanges.length; i++){
-    //   if(newChanges[i].productId === )
-    // }
+
+    this.setState(previousState => {
+      let newChanges = previousState.changes.filter(productElement => {
+        if (productId !== productElement.productId) {
+          return true
+        } else return false
+      })
+      newChanges.push(changedProduct)
+      return {changes: newChanges}
+    })
   }
+
+  submitHandler(evt) {
+    evt.preventDefault()
+    this.props.editCart(this.state)
+  }
+
   render() {
     let {products, id} = this.props.cart
     return (
       <div id="cart">
         {!this.loaded ? (
           <div>Loading...</div>
-        ) : this.loaded && !products ? (
+        ) : this.loaded && !products.length ? (
           <div>Your cart is empty!</div>
         ) : (
           products &&
@@ -45,6 +58,7 @@ class DisconnectedCart extends Component {
             return (
               <Product
                 key={product.id}
+                proId={product.id}
                 cartId={id}
                 product={product}
                 mode="cart"
@@ -53,7 +67,10 @@ class DisconnectedCart extends Component {
               />
             )
           })
-        )}
+        )}{' '}
+        <button type="submit" onClick={this.submitHandler}>
+          Save
+        </button>
       </div>
     )
   }
@@ -69,6 +86,9 @@ const mapDispatchToProps = dispatch => ({
   },
   removeFromCart: product => {
     dispatch(removeFromCart(product))
+  },
+  editCart: state => {
+    dispatch(editCartThunk(state))
   }
 })
 
