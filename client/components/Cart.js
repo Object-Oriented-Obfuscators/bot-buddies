@@ -31,7 +31,7 @@ class DisconnectedCart extends Component {
     // }
   }
   render() {
-    let {products} = this.props.cart
+    let {products, id} = this.props.cart
     return (
       <div id="cart">
         {!this.loaded ? (
@@ -45,6 +45,7 @@ class DisconnectedCart extends Component {
             return (
               <Product
                 key={product.id}
+                cartId={id}
                 product={product}
                 mode="cart"
                 handleChange={this.handleChange}

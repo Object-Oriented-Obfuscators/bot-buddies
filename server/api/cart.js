@@ -97,4 +97,19 @@ router.put('/', async (req, res, next) => {
   res.send(data)
 })
 
+router.delete('/', async (req, res, next) => {
+  try {
+    const product = await OrdersProducts.findOne({
+      where: {productId: req.body.id, orderId: req.body.cartId}
+    })
+    if (!product) {
+      res.status(404).send('Product Does Not Exist')
+    }
+    await product.destroy()
+    res.sendStatus(200)
+  } catch (error) {
+    next(error)
+  }
+})
+
 module.exports = router
