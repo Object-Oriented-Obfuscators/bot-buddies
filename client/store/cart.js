@@ -1,5 +1,4 @@
 import axios from 'axios'
-import {runInNewContext} from 'vm'
 
 // Action Type
 const GET_CART = 'GET_CART'
@@ -66,19 +65,6 @@ const cartReducer = (cart = [], action) => {
       return action.cart
     case ADD_TO_CART: {
       let newCart = [...cart]
-      // let replaced = false
-      // // loop through the cart to find product with outdated qty
-      // for (let i = 0; i < newCart.length; i++) {
-      //   if (newCart[i].productId === action.product.productId) {
-      //     newCart[i] = action.product
-      //     replaced = true
-      //     break
-      //   }
-      // }
-      // // if no product is found, then add the product to the cart
-      // if (!replaced) {
-      //   newCart.push(action.product)
-      // }
       const indexToReplace = newCart.findIndex(
         product => product.productId === action.product.productId
       )

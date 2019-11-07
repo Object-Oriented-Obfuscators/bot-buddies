@@ -1,12 +1,14 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Carts = db.define('carts', {
-  date: Sequelize.DATE,
-  total: Sequelize.FLOAT
+const Orders = db.define('order', {
+  complete: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  }
 })
 
-const CartsProducts = db.define('CartsProducts', {
+const OrdersProducts = db.define('OrdersProducts', {
   qty: {
     type: Sequelize.INTEGER,
     defaultValue: 1,
@@ -17,4 +19,4 @@ const CartsProducts = db.define('CartsProducts', {
   }
 })
 
-module.exports = {Carts, CartsProducts}
+module.exports = {Orders, OrdersProducts}
