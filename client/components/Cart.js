@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getCart} from '../store/cart'
+import {getCart, editCartThunk} from '../store/cart'
 import Product from './Product'
 
 class DisconnectedCart extends Component {
@@ -11,6 +11,7 @@ class DisconnectedCart extends Component {
     }
     this.loaded = false
     this.handleChange = this.handleChange.bind(this)
+    this.submitHandler = this.submitHandler.bind(this)
   }
   componentDidMount() {
     this.props.getCart()
@@ -18,18 +19,31 @@ class DisconnectedCart extends Component {
   }
   handleChange(evt, product) {
     let qty = evt.target.value
-    let cartId = this.props.cart.id
+    let orderId = this.props.cart.id
     let productId = product.id
     let changedProduct = {
       qty,
-      cartId,
+      orderId,
       productId
     }
-    let newChanges = [...this.state.changes]
-    // for (let i = 0; i < newChanges.length; i++){
-    //   if(newChanges[i].productId === )
-    // }
+
+    this.setState(previousState => {
+      let newChanges = previousState.changes.filter(productElement => {
+        if (productId !== productElement.id) {
+          return true
+        } else return false
+      })
+      newChanges.push(changedProduct)
+      return {changes: newChanges}
+    })
   }
+
+  submitHandler(evt) {
+    evt.preventDefault()
+    this.props.editCart(this.state)
+    this.props.getCart()
+  }
+
   render() {
     let {products} = this.props.cart
     return (
@@ -51,7 +65,10 @@ class DisconnectedCart extends Component {
               />
             )
           })
-        )}
+        )}{' '}
+        <button type="submit" onClick={this.submitHandler}>
+          Save
+        </button>
       </div>
     )
   }
@@ -64,6 +81,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getCart: () => {
     dispatch(getCart())
+  },
+  editCart: state => {
+    dispatch(editCartThunk(state))
   }
 })
 
