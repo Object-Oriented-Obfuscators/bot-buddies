@@ -15,7 +15,7 @@ class AllProducts extends Component {
         {this.props.products.map(product => {
           return (
             <div key={product.id}>
-              <Product product={product} />
+              <Product product={product} mode="product" />
               <button
                 type="button"
                 onClick={() => this.props.addToCart(product)}
