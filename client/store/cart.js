@@ -13,10 +13,10 @@ export const gotCart = cart => {
   }
 }
 
-export const addToCart = product => {
+export const addToCart = cart => {
   return {
     type: ADD_TO_CART,
-    product
+    cart
   }
 }
 
@@ -59,21 +59,12 @@ export const editCartThunk = changes => async dispatch => {
 
 // reducer
 
-const cartReducer = (cart = [], action) => {
+const cartReducer = (cart = {}, action) => {
   switch (action.type) {
     case GET_CART:
       return action.cart
     case ADD_TO_CART: {
-      let newCart = [...cart]
-      const indexToReplace = newCart.findIndex(
-        product => product.productId === action.product.productId
-      )
-      if (indexToReplace === -1) {
-        newCart.push(action.product)
-      } else {
-        newCart[indexToReplace] = action.product
-      }
-      return newCart
+      return action.cart
     }
     case EDIT_CART: {
       return action.cart

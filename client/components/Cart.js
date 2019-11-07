@@ -29,7 +29,7 @@ class DisconnectedCart extends Component {
 
     this.setState(previousState => {
       let newChanges = previousState.changes.filter(productElement => {
-        if (productId !== productElement.id) {
+        if (productId !== productElement.productId) {
           return true
         } else return false
       })
@@ -41,7 +41,6 @@ class DisconnectedCart extends Component {
   submitHandler(evt) {
     evt.preventDefault()
     this.props.editCart(this.state)
-    this.props.getCart()
   }
 
   render() {
