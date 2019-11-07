@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom'
 
 const Product = props => {
   const {mode} = props
-  console.log('PROPS---->', props)
   return (
     <div className="product row">
       <div className="column">
@@ -14,7 +13,7 @@ const Product = props => {
             Quantity:
             <input
               placeholder={props.product.OrdersProducts.qty}
-              onChange={props.handleChange}
+              onChange={evt => props.handleChange(evt, props.product)}
             />
           </div>
         )}
