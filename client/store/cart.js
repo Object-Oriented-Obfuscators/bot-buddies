@@ -1,5 +1,4 @@
 import axios from 'axios'
-import {runInNewContext} from 'vm'
 
 // Action Type
 const GET_CART = 'GET_CART'
