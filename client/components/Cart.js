@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getCart} from '../store/cart'
+import {getCart, removeFromCart} from '../store/cart'
 import Product from './Product'
 
 class DisconnectedCart extends Component {
@@ -49,6 +49,7 @@ class DisconnectedCart extends Component {
                 product={product}
                 mode="cart"
                 handleChange={this.handleChange}
+                removeFromCart={this.props.removeFromCart}
               />
             )
           })
@@ -65,6 +66,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getCart: () => {
     dispatch(getCart())
+  },
+  removeFromCart: product => {
+    dispatch(removeFromCart(product))
   }
 })
 

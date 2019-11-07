@@ -15,7 +15,15 @@ const Product = props => {
               placeholder={props.product.OrdersProducts.qty}
               onChange={evt => props.handleChange(evt, props.product)}
             />
-            <button type="submit">Remove from cart</button>
+            <button
+              type="submit"
+              onClick={props.removeFromCart({
+                id: props.key,
+                cartId: props.cartId
+              })}
+            >
+              Remove from cart
+            </button>
           </div>
         )}
         <Link to={`/products/${props.product.id}`}>
