@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getCart, editCartThunk} from '../store/cart'
+import {getCart, removeFromCart, editCartThunk} from '../store/cart'
 import Product from './Product'
 
 class DisconnectedCart extends Component {
-  constructor(props) {
+  constructor() {
     super()
     this.state = {
       changes: []
@@ -44,12 +44,12 @@ class DisconnectedCart extends Component {
   }
 
   render() {
-    let {products} = this.props.cart
+    let {products, id} = this.props.cart
     return (
       <div id="cart">
         {!this.loaded ? (
           <div>Loading...</div>
-        ) : this.loaded && !products ? (
+        ) : this.loaded && !products.length ? (
           <div>Your cart is empty!</div>
         ) : (
           products &&
@@ -58,9 +58,11 @@ class DisconnectedCart extends Component {
             return (
               <Product
                 key={product.id}
+                cartId={id}
                 product={product}
                 mode="cart"
                 handleChange={this.handleChange}
+                removeFromCart={this.props.removeFromCart}
               />
             )
           })
@@ -80,6 +82,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getCart: () => {
     dispatch(getCart())
+  },
+  removeFromCart: product => {
+    dispatch(removeFromCart(product))
   },
   editCart: state => {
     dispatch(editCartThunk(state))

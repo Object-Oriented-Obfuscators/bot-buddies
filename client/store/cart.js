@@ -4,6 +4,7 @@ import axios from 'axios'
 const GET_CART = 'GET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
 const EDIT_CART = 'EDIT_CART'
+const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 
 // Action Creator
 export const gotCart = cart => {
@@ -16,6 +17,13 @@ export const gotCart = cart => {
 export const addToCart = cart => {
   return {
     type: ADD_TO_CART,
+    cart
+  }
+}
+
+export const cartRemove = cart => {
+  return {
+    type: REMOVE_FROM_CART,
     cart
   }
 }
@@ -57,6 +65,17 @@ export const editCartThunk = changes => async dispatch => {
   }
 }
 
+export const removeFromCart = product => async dispatch => {
+  try {
+    const {data} = await axios.delete(
+      `/api/cart/${product.productId}/${product.orderId}`
+    )
+    dispatch(cartRemove(data))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 // reducer
 
 const cartReducer = (cart = {}, action) => {
@@ -69,6 +88,8 @@ const cartReducer = (cart = {}, action) => {
     case EDIT_CART: {
       return action.cart
     }
+    case REMOVE_FROM_CART:
+      return action.cart
     default:
       return cart
   }

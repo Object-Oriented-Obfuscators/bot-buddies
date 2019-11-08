@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 
 const Product = props => {
   const {mode} = props
+
   return (
     <div className="product row">
       <div className="column">
@@ -15,6 +16,19 @@ const Product = props => {
               placeholder={props.product.OrdersProducts.qty}
               onChange={evt => props.handleChange(evt, props.product)}
             />
+            <button
+              type="button"
+              onClick={() => {
+                let productToRemove = {
+                  productId: props.product.id,
+                  orderId: props.cartId
+                }
+
+                props.removeFromCart(productToRemove)
+              }}
+            >
+              Remove from cart
+            </button>
           </div>
         )}
         <Link to={`/products/${props.product.id}`}>

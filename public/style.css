@@ -19,3 +19,23 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+#products {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.botTile {
+  width: 30%;
+  height: 500px;
+}
+
+.productImage {
+  width: 200px;
+  /* height: 400px; */
+}
+
+#mainTitle {
+  text-align: center;
+  font-family: 'Press Start 2P', cursive;
+}
