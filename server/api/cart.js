@@ -103,23 +103,27 @@ router.put('/', async (req, res, next) => {
   res.send(data)
 })
 
-router.delete('/', async (req, res, next) => {
-  console.log(req.session)
+router.delete('/:productId/:orderId', async (req, res, next) => {
   try {
+    const productId = req.params.productId
+    const orderId = req.params.orderId
+
     const product = await OrdersProducts.findOne({
-      where: {productId: req.session.id, orderId: req.session.cartId}
+      where: {productId: productId, orderId: orderId}
     })
+
     if (!product) {
       res.status(404).send('Product Does Not Exist')
-    }
-    await product.destroy()
+    } else {
+      await product.destroy()
 
-    res.send(
-      await Orders.findOne({
-        where: {id: req.body.cartId},
-        include: {model: Products}
-      })
-    )
+      res.send(
+        await Orders.findOne({
+          where: {id: orderId},
+          include: {model: Products}
+        })
+      )
+    }
   } catch (error) {
     next(error)
   }

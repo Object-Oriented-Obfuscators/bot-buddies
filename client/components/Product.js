@@ -3,8 +3,7 @@ import {Link} from 'react-router-dom'
 
 const Product = props => {
   const {mode} = props
-  console.log('this is product id', props.product.id)
-  console.log('this is cart id', props.cartId)
+
   return (
     <div className="product row">
       <div className="column">
@@ -18,15 +17,15 @@ const Product = props => {
               onChange={evt => props.handleChange(evt, props.product)}
             />
             <button
-              type="submit"
-              onClick={() =>
-                props.removeFromCart({
-                  // id: props.product.id,
-                  // cartId: props.cartId
-                  id: 2,
-                  cartId: 9
-                })
-              }
+              type="button"
+              onClick={() => {
+                let productToRemove = {
+                  productId: props.product.id,
+                  orderId: props.cartId
+                }
+
+                props.removeFromCart(productToRemove)
+              }}
             >
               Remove from cart
             </button>

@@ -58,7 +58,6 @@ class DisconnectedCart extends Component {
             return (
               <Product
                 key={product.id}
-                proId={product.id}
                 cartId={id}
                 product={product}
                 mode="cart"
