@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  margin: 0;
 }
 
 a {
@@ -15,27 +16,122 @@ nav a {
   margin: 1em;
 }
 
-form div {
+/* form div {
   margin: 1em;
   display: inline-block;
+} */
+
+#main {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+#navbar {
+  background-color: #262626;
+  /* position: fixed; */
+  top: 0;
+  width: 100%;
+}
+
+.welcome {
+  color: white;
+  font-size: 200%;
+  padding: 10px;
 }
 
 #products {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-around;
 }
 
-.botTile {
-  width: 30%;
-  height: 500px;
+.botTile,
+.cartProduct {
+  border: 1px solid black;
+  border-radius: 15px;
+  margin: 20px;
+  box-shadow: 3px 3px 5px #888888;
+  transition: all 0.3s ease;
+  background-color: black;
+  color: white;
 }
 
-.productImage {
+.name,
+.price {
+  text-align: center;
+  font-family: 'Press Start 2P', cursive;
+  margin-bottom: 10px;
+}
+
+.name {
+  margin-top: 10px;
+}
+
+button.ui.fluid.button.addButton {
+  border-radius: 0 0 15px 15px;
+}
+
+.productImage.product {
+  width: 380px;
+  height: 380px;
+  background-position: center top;
+  background-color: #ffffff;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.productImage.cart {
   width: 200px;
-  /* height: 400px; */
+  height: 200px;
+  background-position: center top;
+  background-color: #ffffff;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 10px auto;
+  border: 1px solid black;
+}
+
+.botTile:hover,
+.cartProduct:hover {
+  -webkit-transform: scale(1.3);
+  -ms-transform: scale(1.3);
+  transform: scale(1.05);
+  background-color: white;
+  color: black;
 }
 
 #mainTitle {
   text-align: center;
   font-family: 'Press Start 2P', cursive;
+  color: white;
+}
+
+#cartDiv {
+  text-align: center;
+  font-family: 'Press Start 2P', cursive;
+}
+
+#cartTitle {
+  font-size: 200%;
+  margin: 20px;
+}
+
+#cartListView {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+#emptyCart {
+  font-family: 'Press Start 2P', cursive;
+  text-align: center;
+  padding-top: 100px;
+  margin-bottom: 50px;
+}
+
+.cartProduct {
+  width: 200px;
 }
