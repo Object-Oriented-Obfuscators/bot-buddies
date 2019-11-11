@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import {Icon} from 'semantic-ui-react'
 
 const Product = props => {
   const {mode} = props
@@ -26,13 +27,14 @@ const Product = props => {
               props.removeFromCart(productToRemove)
             }}
           >
+            <Icon name="trash alternate" />
             Remove from cart
           </button>
         </div>
       )}
       <Link to={`/products/${props.product.id}`}>
         <div
-          className="productImage"
+          className={`productImage ${mode}`}
           style={{backgroundImage: `url(${props.product.imageUrl})`}}
         >
           {/* <img className="productImage" src={props.product.imageUrl} /> */}

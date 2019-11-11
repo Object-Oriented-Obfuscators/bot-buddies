@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getCart, removeFromCart, editCartThunk} from '../store/cart'
 import Product from './Product'
+import {Loader} from 'semantic-ui-react'
 
 class DisconnectedCart extends Component {
   constructor() {
@@ -46,30 +47,37 @@ class DisconnectedCart extends Component {
   render() {
     let {products, id} = this.props.cart
     return (
-      <div id="cart">
+      <div id="cartDiv">
+        <div id="cartTitle">Shopping Cart</div>
+
         {!this.loaded ? (
-          <div>Loading...</div>
+          <Loader active inline="centered" />
         ) : this.loaded && !products.length ? (
-          <div>Your cart is empty!</div>
+          <div id="emptyCart">Your cart is empty!</div>
         ) : (
           products &&
-          this.loaded &&
-          products.map(product => {
-            return (
-              <Product
-                key={product.id}
-                cartId={id}
-                product={product}
-                mode="cart"
-                handleChange={this.handleChange}
-                removeFromCart={this.props.removeFromCart}
-              />
-            )
-          })
-        )}{' '}
-        <button type="submit" onClick={this.submitHandler}>
-          Save
-        </button>
+          this.loaded && (
+            <div>
+              {products.map(product => {
+                return (
+                  <div className="cartProduct" key={product.id}>
+                    <Product
+                      // key={product.id}
+                      cartId={id}
+                      product={product}
+                      mode="cart"
+                      handleChange={this.handleChange}
+                      removeFromCart={this.props.removeFromCart}
+                    />
+                  </div>
+                )
+              })}
+              <button type="submit" onClick={this.submitHandler}>
+                Save
+              </button>
+            </div>
+          )
+        )}
       </div>
     )
   }

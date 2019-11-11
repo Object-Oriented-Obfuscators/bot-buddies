@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {getAllProducts} from '../store/products'
 import {addToCartThunk} from '../store/cart'
 import Product from './Product'
+import {Button, Icon} from 'semantic-ui-react'
 
 class AllProducts extends Component {
   componentDidMount() {
@@ -16,15 +17,15 @@ class AllProducts extends Component {
           return (
             <div className="botTile" key={product.id}>
               <Product product={product} mode="product" />
-              <div className="addButtonDiv">
-                <button
-                  className="addButton"
-                  type="button"
-                  onClick={() => this.props.addToCart(product)}
-                >
-                  Add to Cart
-                </button>
-              </div>
+
+              <Button
+                className="addButton"
+                fluid
+                onClick={() => this.props.addToCart(product)}
+              >
+                <Icon name="add to cart" />
+                Add to Cart
+              </Button>
             </div>
           )
         })}
