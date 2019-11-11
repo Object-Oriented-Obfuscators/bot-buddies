@@ -19,6 +19,9 @@ router.use(async (req, res, next) => {
           id: req.session.orderId
         }
       })
+      if (currentOrder.complete) {
+        currentOrder = await Orders.create()
+      }
     } else {
       currentOrder = await Orders.create()
     }

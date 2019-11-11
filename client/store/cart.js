@@ -5,11 +5,19 @@ const GET_CART = 'GET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
 const EDIT_CART = 'EDIT_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
+const CHECKOUT = 'CHECKOUT'
 
 // Action Creator
 export const gotCart = cart => {
   return {
     type: GET_CART,
+    cart
+  }
+}
+
+export const checkedOut = cart => {
+  return {
+    type: CHECKOUT,
     cart
   }
 }
@@ -28,7 +36,6 @@ export const cartRemove = cart => {
   }
 }
 
-// changes  = {changes: [{qty, prodId, cartId}, {}...]}
 export const editCart = cart => {
   return {
     type: EDIT_CART,
@@ -37,6 +44,15 @@ export const editCart = cart => {
 }
 
 // Thunk Creator
+
+export const checkout = () => async dispatch => {
+  try {
+    const {data} = await axios.put('/api/checkout')
+    dispatch(checkedOut(data))
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 export const getCart = () => async dispatch => {
   try {
@@ -80,6 +96,8 @@ export const removeFromCart = product => async dispatch => {
 
 const cartReducer = (cart = {}, action) => {
   switch (action.type) {
+    case CHECKOUT:
+      return action.cart
     case GET_CART:
       return action.cart
     case ADD_TO_CART: {
