@@ -14,14 +14,17 @@ class AllProducts extends Component {
       <div id="products">
         {this.props.products.map(product => {
           return (
-            <div key={product.id}>
+            <div className="botTile" key={product.id}>
               <Product product={product} mode="product" />
-              <button
-                type="button"
-                onClick={() => this.props.addToCart(product)}
-              >
-                Add to Cart
-              </button>
+              <div className="addButtonDiv">
+                <button
+                  className="addButton"
+                  type="button"
+                  onClick={() => this.props.addToCart(product)}
+                >
+                  Add to Cart
+                </button>
+              </div>
             </div>
           )
         })}
