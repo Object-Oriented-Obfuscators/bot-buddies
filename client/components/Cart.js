@@ -15,7 +15,7 @@ class DisconnectedCart extends Component {
   }
   componentDidMount() {
     this.props.getCart()
-    this.loaded = true
+    this.loaded = true // set to state
   }
   handleChange(evt, product) {
     let qty = evt.target.value
