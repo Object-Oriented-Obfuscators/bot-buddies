@@ -26,7 +26,11 @@ router.put('/', async (req, res, next) => {
           let product = await Products.findByPk(lineItems[i].productId)
           await product.update({stock: product.stock - lineItems[i].qty})
         }
-        order = await order.update({complete: canFulfill})
+        await order.update({complete: canFulfill})
+        order = await Orders.findOne({
+          where: {id: req.session.orderId},
+          include: {model: Products}
+        })
         res.send(order)
       } else {
         res.status(500).send('Not enough inventory')
@@ -38,34 +42,3 @@ router.put('/', async (req, res, next) => {
 })
 
 module.exports = router
-// let complete = true
-// updatedOrder.forEach(async item => {
-//   let product = await Products.findByPk(item.productId)
-//   try {
-//     if (item.qty > product.stock || complete === false) {
-//       complete = false
-//       order = await order.update({complete})
-//       throw new Error(
-//         'Item quantity exceeds stock. Please modify your cart.'
-//       )
-//     } else {
-//     }
-//   } catch (error) {
-//     next(error)
-//   }
-// })
-
-// let error = false
-
-//       let complete = false
-//       updatedOrder.forEach(async item => {
-//         let product = await Products.findByPk(item.productId)
-//         if (item.qty > product.stock || error) error = true
-//       })
-
-//       if (!error) {
-//         complete = true
-//         updatedOrder.forEach(async item => {
-//           let product = await Products.findByPk(item.productId)
-//           await product.update({stock: product.stock - item.qty})
-//         })
