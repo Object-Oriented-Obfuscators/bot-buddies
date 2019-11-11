@@ -34,6 +34,12 @@ nav a {
   width: 100%;
 }
 
+.welcome {
+  color: white;
+  font-size: 200%;
+  padding: 10px;
+}
+
 #products {
   display: flex;
   flex-wrap: wrap;
