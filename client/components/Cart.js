@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getCart, removeFromCart, editCartThunk, checkout} from '../store/cart'
@@ -14,6 +15,7 @@ class DisconnectedCart extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.submitHandler = this.submitHandler.bind(this)
   }
+
   componentDidMount() {
     this.props.getCart()
     this.setState({loaded: true})
@@ -78,6 +80,18 @@ class DisconnectedCart extends Component {
               <button type="button" onClick={this.props.checkout}>
                 Checkout
               </button>
+              <p>
+                Total:
+                {Array.isArray(products) &&
+                  products.length &&
+                  products
+                    .map(product => {
+                      return product.price * product.OrdersProducts.qty
+                    })
+                    .reduce((acc, index) => {
+                      return acc + index
+                    })}
+              </p>
             </div>
           )
         )}
