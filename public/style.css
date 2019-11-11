@@ -111,6 +111,14 @@ button.ui.fluid.button.addButton {
   margin: 20px;
 }
 
+#cartListView {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  text-align: center;
+  margin: 0 auto;
+}
+
 #emptyCart {
   font-family: 'Press Start 2P', cursive;
   text-align: center;

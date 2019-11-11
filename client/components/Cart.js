@@ -57,7 +57,7 @@ class DisconnectedCart extends Component {
         ) : (
           products &&
           this.loaded && (
-            <div>
+            <div id="cartListView">
               {products.map(product => {
                 return (
                   <div className="cartProduct" key={product.id}>
