@@ -65,9 +65,11 @@ const User = db.define('user', {
   imageUrl: {
     type: Sequelize.STRING,
     allowNull: false,
-    validate: {
-      notEmpty: true
-    }
+    defaultValue:
+      'https://www.pinclipart.com/picdir/middle/124-1243030_man-silhouette-vector-15-buy-clip-art-sitting.png'
+    // validate: {
+    //   notEmpty: true
+    // }
   }
 })
 

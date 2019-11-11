@@ -3,30 +3,46 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import {Icon} from 'semantic-ui-react'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
+const Navbar = ({handleClick, isLoggedIn, firstName, lastName}) => (
+  <div id="navbar">
     <h1 id="mainTitle">BOT-BUDDIES</h1>
     <nav>
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
+          <Link to="/">
+            <Icon name="home" /> Home
+          </Link>
+          <Link to="/cart">
+            <Icon name="shopping cart" /> Cart
+          </Link>
           <a href="#" onClick={handleClick}>
-            Logout
+            <Icon name="sign out" /> Logout
           </a>
+          <div className="welcome">
+            Welcome, {firstName} {lastName}!
+          </div>
         </div>
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-          <Link to="/cart">Cart</Link>
-          <Link to="/">Home</Link>
+          <Link to="/login">
+            <Icon name="sign in" /> Login
+          </Link>
+          <Link to="/signup">
+            <Icon name="user plus" /> Sign Up
+          </Link>
+          <Link to="/cart">
+            <Icon name="shopping cart" /> Cart
+          </Link>
+          <Link to="/">
+            <Icon name="home" /> Home
+          </Link>
         </div>
       )}
     </nav>
-    <hr />
   </div>
 )
 
@@ -35,7 +51,10 @@ const Navbar = ({handleClick, isLoggedIn}) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    email: state.user.email,
+    firstName: state.user.fname,
+    lastName: state.user.lname
   }
 }
 
