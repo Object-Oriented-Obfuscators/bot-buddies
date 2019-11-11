@@ -8,29 +8,29 @@ router.put('/', async (req, res, next) => {
     if (order.complete === true) {
       res.send(order)
     } else {
-      const updatedOrder = await OrdersProducts.findAll({
+      const lineItems = await OrdersProducts.findAll({
         where: {orderId}
       })
-
-      let complete = true
-
-      while (complete) {
-        updatedOrder.forEach(async item => {
-          let product = await Products.findByPk(item.productId)
-          if (item.qty > product.stock) {
-            complete = false
-            throw new Error(`Error`)
-          }
-        })
+      let canFulfill = true
+      for (let i = 0; i < lineItems.length; i++) {
+        let product = await Products.findByPk(lineItems[i].productId)
+        if (product.stock >= lineItems[i].qty && canFulfill) {
+          canFulfill = true
+        } else {
+          canFulfill = false
+        }
       }
 
-      updatedOrder.forEach(async item => {
-        let product = await Products.findByPk(item.productId)
-        await product.update({stock: product.stock - item.qty})
-      })
-
-      order = await order.update({complete})
-      res.send(order)
+      if (canFulfill) {
+        for (let i = 0; i < lineItems.length; i++) {
+          let product = await Products.findByPk(lineItems[i].productId)
+          await product.update({stock: product.stock - lineItems[i].qty})
+        }
+        order = await order.update({complete: canFulfill})
+        res.send(order)
+      } else {
+        res.status(500).send('Not enough inventory')
+      }
     }
   } catch (error) {
     next(error)
