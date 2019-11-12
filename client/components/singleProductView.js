@@ -20,7 +20,7 @@ class SingleProduct extends Component {
         <div className="singleProductViewDiv">
           <p className="singleViewName">{`${this.props.singleProduct.name}`}</p>
           <p className="singleViewPrice">
-            $ {`${this.props.singleProduct.price}`}
+            $ {`${this.props.singleProduct.price / 100}`}
           </p>
           <img
             className="singleViewImage"
