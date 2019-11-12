@@ -120,9 +120,9 @@ class DisconnectedCart extends Component {
                             </Button>
                           </div>
                         </Table.Cell>
-                        <Table.Cell> $ {product.price}</Table.Cell>
+                        <Table.Cell> $ {product.price / 100}</Table.Cell>
                         <Table.Cell>
-                          $ {product.price * product.OrdersProducts.qty}
+                          $ {product.price * product.OrdersProducts.qty / 100}
                         </Table.Cell>
                       </Table.Row>
                     )
@@ -139,7 +139,7 @@ class DisconnectedCart extends Component {
                     })
                     .reduce((acc, index) => {
                       return acc + index
-                    })}
+                    }) / 100}
               </div>
               <div id="cartButtonsDiv">
                 <div id="editButtonDiv">
