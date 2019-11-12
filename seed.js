@@ -15,14 +15,14 @@ const products = [
     imageUrl:
       'https://vignette.wikia.nocookie.net/starwars/images/0/05/Probe_Droid_SWB.png/revision/latest?cb=20151115014524',
     price: 39999,
-    stock: 3
+    stock: 99
   },
   {
     name: 'Fancy Bot',
     description: `Impress your parents with this shiny gold bot! They'll finally think you're successfull! ...maybe.`,
     imageUrl: 'https://upload.wikimedia.org/wikipedia/en/5/5c/C-3PO_droid.png',
     price: 399999,
-    stock: 1
+    stock: 99
   },
   {
     name: 'Chef Gordon RamBot',
@@ -30,7 +30,7 @@ const products = [
     imageUrl:
       'https://static01.nyt.com/images/2010/02/24/dining/24robots-2/24robots_CA1-articleLarge.jpg',
     price: 9999999,
-    stock: 1
+    stock: 99
   },
   {
     name: 'Kitty Bot',
@@ -38,7 +38,7 @@ const products = [
     imageUrl:
       'https://i.pinimg.com/originals/cc/9b/26/cc9b26ed329f5c64eac45b40766bfb9a.jpg',
     price: 90000,
-    stock: 5
+    stock: 99
   },
   {
     name: 'Best Friend Bot',
@@ -46,7 +46,7 @@ const products = [
     imageUrl:
       'https://vignette.wikia.nocookie.net/villains/images/8/8f/The_Bender.jpg/revision/latest?cb=20180701200006',
     price: 70000,
-    stock: 10
+    stock: 99
   },
   {
     name: 'Puppy Bot',
@@ -54,14 +54,14 @@ const products = [
     imageUrl:
       'https://beta.techcrunch.com/wp-content/uploads/2007/07/bjrobot.jpg?_ga=2.218268059.320311278.1573144269-598549853.1573144269',
     price: 60000,
-    stock: 9
+    stock: 99
   },
   {
     name: '2050 Ford Mustang',
     description: `12,000 horse power in a single horse.`,
     imageUrl: 'https://i.ytimg.com/vi/GfBy1chP3po/maxresdefault.jpg',
     price: 1200000,
-    stock: 5
+    stock: 99
   },
   {
     name: 'Lovebot',
@@ -69,7 +69,7 @@ const products = [
     imageUrl:
       'https://cdn.clipart.email/a5d5b178d9b4daacc782007f59c437fb_robot-valentines-day-clip-art-clip-art-robot-valentines-day-image_366-550.png',
     price: 90000,
-    stock: 4
+    stock: 99
   },
   {
     name: 'Roberto',
@@ -78,7 +78,7 @@ const products = [
     imageUrl:
       'https://vignette.wikia.nocookie.net/villains/images/9/9e/Roberto_robot.jpg/revision/latest?cb=20190124053926',
     price: 20000,
-    stock: 1
+    stock: 99
   }
 ]
 
