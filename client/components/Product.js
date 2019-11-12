@@ -36,9 +36,7 @@ const Product = props => {
         <div
           className={`productImage ${mode}`}
           style={{backgroundImage: `url(${props.product.imageUrl})`}}
-        >
-          {/* <img className="productImage" src={props.product.imageUrl} /> */}
-        </div>
+        />
       </Link>
     </div>
   )
