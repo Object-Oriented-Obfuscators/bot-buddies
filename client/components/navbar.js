@@ -18,6 +18,9 @@ const Navbar = ({handleClick, isLoggedIn, firstName, lastName}) => (
           <Link to="/cart">
             <Icon name="shopping cart" /> Cart
           </Link>
+          <Link to="/orders">
+            <Icon name="history" /> Order History
+          </Link>
           <a href="#" onClick={handleClick}>
             <Icon name="sign out" /> Logout
           </a>

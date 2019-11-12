@@ -6,10 +6,6 @@ import {Button, Icon} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 
 class SingleProduct extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentDidMount() {
     this.props.getSingleProduct(this.props.match.params.id)
   }
