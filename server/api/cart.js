@@ -19,13 +19,37 @@ router.use(async (req, res, next) => {
           id: req.session.orderId
         }
       })
-      if (currentOrder.complete) {
-        currentOrder = await Orders.create()
+      if (currentOrder) {
+        if (currentOrder.complete) {
+          currentOrder = await Orders.create()
+        }
       }
     } else {
       currentOrder = await Orders.create()
     }
     req.session.orderId = currentOrder.id
+    next()
+  } catch (error) {
+    next(error)
+  }
+})
+
+//This middleware will update the total cost of an order and save it to the database
+router.use(async (req, res, next) => {
+  try {
+    let order = await Orders.findByPk(req.session.orderId, {
+      include: {model: Products}
+    })
+    if (order.products) {
+      let total = order.products
+        .map(product => {
+          return product.price * product.OrdersProducts.qty
+        })
+        .reduce((acc, idx) => {
+          return acc + idx
+        }, 0)
+      await order.update({total})
+    }
     next()
   } catch (error) {
     next(error)
