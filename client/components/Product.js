@@ -8,7 +8,7 @@ const Product = props => {
   return (
     <div>
       <div className="name">{props.product.name}</div>
-      <div className="price">${props.product.price}</div>
+      <div className="price">${props.product.price / 100}</div>
       {mode === 'cart' && (
         <div>
           Quantity:
@@ -36,9 +36,7 @@ const Product = props => {
         <div
           className={`productImage ${mode}`}
           style={{backgroundImage: `url(${props.product.imageUrl})`}}
-        >
-          {/* <img className="productImage" src={props.product.imageUrl} /> */}
-        </div>
+        />
       </Link>
     </div>
   )

@@ -19,8 +19,10 @@ router.use(async (req, res, next) => {
           id: req.session.orderId
         }
       })
-      if (currentOrder.complete) {
-        currentOrder = await Orders.create()
+      if (currentOrder) {
+        if (currentOrder.complete) {
+          currentOrder = await Orders.create()
+        }
       }
     } else {
       currentOrder = await Orders.create()
@@ -48,6 +50,7 @@ router.get('/', async (req, res, next) => {
     } else {
       res.sendStatus(404)
     }
+    next()
   } catch (error) {
     next(error)
   }
@@ -85,25 +88,31 @@ router.post('/', async (req, res, next) => {
         include: {model: Products}
       })
     )
+    next()
   } catch (error) {
     next(error)
   }
 })
 
 router.put('/', async (req, res, next) => {
-  await Promise.all(
-    req.body.changes.map(change => {
-      return OrdersProducts.update(
-        {qty: change.qty},
-        {where: {orderId: change.orderId, productId: change.productId}}
-      )
+  try {
+    await Promise.all(
+      req.body.changes.map(change => {
+        return OrdersProducts.update(
+          {qty: change.qty},
+          {where: {orderId: change.orderId, productId: change.productId}}
+        )
+      })
+    )
+    let data = await Orders.findOne({
+      where: {id: req.session.orderId},
+      include: {model: Products}
     })
-  )
-  let data = await Orders.findOne({
-    where: {id: req.session.orderId},
-    include: {model: Products}
-  })
-  res.send(data)
+    res.send(data)
+    next()
+  } catch (error) {
+    next(error)
+  }
 })
 
 router.delete('/:productId/:orderId', async (req, res, next) => {
@@ -127,6 +136,29 @@ router.delete('/:productId/:orderId', async (req, res, next) => {
         })
       )
     }
+    next()
+  } catch (error) {
+    next(error)
+  }
+})
+
+// This middleware will update the total cost of an order and save it to the database
+router.use(async (req, res, next) => {
+  try {
+    let order = await Orders.findByPk(req.session.orderId, {
+      include: {model: Products}
+    })
+    if (order.products) {
+      let total = order.products
+        .map(product => {
+          return product.price * product.OrdersProducts.qty
+        })
+        .reduce((acc, idx) => {
+          return acc + idx
+        }, 0)
+      await order.update({total})
+    }
+    res.end()
   } catch (error) {
     next(error)
   }
