@@ -7,6 +7,8 @@ import {me} from './store'
 import AllProducts from './components/AllProducts'
 import singleProductView from './components/singleProductView'
 import CartView from './components/Cart'
+import ordersHistory from './components/ordersHistory'
+import SingleOrder from './components/SingleOrder'
 
 /**
  * COMPONENT
@@ -26,6 +28,8 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/products/:id" component={singleProductView} />
         <Route path="/cart" component={CartView} />
+        <Route exact path="/orders" component={ordersHistory} />
+        <Route exact path="/orders/:orderId" component={SingleOrder} />
         <Route exact path="/" component={AllProducts} />
         {isLoggedIn && (
           <Switch>
