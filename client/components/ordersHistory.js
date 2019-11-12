@@ -20,7 +20,6 @@ class AllOrders extends Component {
                 <Table.HeaderCell>Total</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
-
             <Table.Body>
               {this.props.ordersHistory.map(order => {
                 return <Order order={order} key={order.id} />
