@@ -5,6 +5,7 @@ import {getCart, removeFromCart, editCartThunk, checkout} from '../store/cart'
 import Product from './Product'
 import {Loader, Table, Icon, Button, Input} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
+import {toast} from 'react-toastify'
 
 class DisconnectedCart extends Component {
   constructor() {
@@ -111,6 +112,7 @@ class DisconnectedCart extends Component {
                                 }
 
                                 this.props.removeFromCart(productToRemove)
+                                toast.warn(`Removed ${product.name}`)
                               }}
                             >
                               <Button.Content visible>
@@ -143,12 +145,31 @@ class DisconnectedCart extends Component {
               </div>
               <div id="cartButtonsDiv">
                 <div id="editButtonDiv">
-                  <Button onClick={this.submitHandler}>
+                  <Button
+                    onClick={event => {
+                      this.submitHandler(event)
+                      toast.success('Updated Quantities!')
+                    }}
+                  >
                     <Icon name="edit" /> Edit Qty
                   </Button>
                 </div>
                 <div id="checkoutButtonDiv">
-                  <Button primary onClick={this.props.checkout}>
+                  <Button
+                    primary
+                    onClick={() => {
+                      this.props.checkout()
+                      console.log(
+                        'this.props.cart.error==>',
+                        this.props.cart.error
+                      )
+                      if (this.props.cart.error) {
+                        toast.warn(`Checkout Failed: ${this.props.cart.error}`)
+                      } else {
+                        toast.success('Thanks for your order!')
+                      }
+                    }}
+                  >
                     <Icon name="cart" /> Checkout
                   </Button>
                 </div>

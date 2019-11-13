@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {addToCartThunk} from '../store/cart'
 import {Button, Icon} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
+import {toast} from 'react-toastify'
 
 class SingleProduct extends Component {
   componentDidMount() {
@@ -31,7 +32,10 @@ class SingleProduct extends Component {
             size="huge"
             animated="fade"
             className="singleProductViewAddButton"
-            onClick={() => this.props.addToCart(this.props.singleProduct)}
+            onClick={() => {
+              toast.success(`Added ${this.props.singleProduct.name} to Cart!`)
+              this.props.addToCart(this.props.singleProduct)
+            }}
           >
             <Button.Content visible>
               <Icon name="add to cart" />

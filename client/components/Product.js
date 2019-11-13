@@ -23,7 +23,6 @@ const Product = props => {
                 productId: props.product.id,
                 orderId: props.cartId
               }
-
               props.removeFromCart(productToRemove)
             }}
           >

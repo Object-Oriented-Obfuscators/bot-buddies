@@ -4,6 +4,7 @@ import {getAllProducts} from '../store/products'
 import {addToCartThunk} from '../store/cart'
 import Product from './Product'
 import {Button, Icon} from 'semantic-ui-react'
+import {toast} from 'react-toastify'
 
 class AllProducts extends Component {
   componentDidMount() {
@@ -21,7 +22,10 @@ class AllProducts extends Component {
               <Button
                 className="addButton"
                 fluid
-                onClick={() => this.props.addToCart(product)}
+                onClick={() => {
+                  toast.success(`Added ${product.name} to Cart!`)
+                  this.props.addToCart(product)
+                }}
               >
                 <Icon name="add to cart" />
                 Add to Cart

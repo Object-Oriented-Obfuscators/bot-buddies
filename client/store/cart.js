@@ -6,6 +6,7 @@ const ADD_TO_CART = 'ADD_TO_CART'
 const EDIT_CART = 'EDIT_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 const CHECKOUT = 'CHECKOUT'
+const CHECKOUT_ERROR = 'CHECKOUT_ERROR'
 
 // Action Creator
 export const gotCart = cart => {
@@ -43,6 +44,10 @@ export const editCart = cart => {
   }
 }
 
+export const checkoutError = error => {
+  return {type: CHECKOUT_ERROR, error}
+}
+
 // Thunk Creator
 
 export const checkout = () => async dispatch => {
@@ -50,7 +55,8 @@ export const checkout = () => async dispatch => {
     const {data} = await axios.put('/api/checkout')
     dispatch(checkedOut(data))
   } catch (error) {
-    console.error(error)
+    dispatch(checkoutError('Not Enough Inventory'))
+    // console.error(error)
   }
 }
 
@@ -97,7 +103,11 @@ export const removeFromCart = product => async dispatch => {
 const cartReducer = (cart = {}, action) => {
   switch (action.type) {
     case CHECKOUT:
-      return action.cart
+      if (action.cart.complete) {
+        return {products: []}
+      } else return action.cart
+    case CHECKOUT_ERROR:
+      return {...cart, error: action.error}
     case GET_CART:
       return action.cart
     case ADD_TO_CART: {
