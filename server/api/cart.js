@@ -5,7 +5,6 @@ const {Orders, OrdersProducts, Products} = require('../db/models/index')
 router.use(async (req, res, next) => {
   try {
     let currentOrder
-    console.log('session id: ', req.session.orderId)
     if (req.user) {
       currentOrder = await Orders.findOrCreate({
         where: {
