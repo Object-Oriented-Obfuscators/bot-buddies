@@ -5,6 +5,7 @@ const {Orders, OrdersProducts, Products} = require('../db/models/index')
 router.use(async (req, res, next) => {
   try {
     let currentOrder
+    console.log('session id: ', req.session.orderId)
     if (req.user) {
       currentOrder = await Orders.findOrCreate({
         where: {
@@ -19,10 +20,10 @@ router.use(async (req, res, next) => {
           id: req.session.orderId
         }
       })
-      if (currentOrder) {
-        if (currentOrder.complete) {
-          currentOrder = await Orders.create()
-        }
+      if (!currentOrder) {
+        currentOrder = await Orders.create()
+      } else if (currentOrder.complete) {
+        currentOrder = await Orders.create()
       }
     } else {
       currentOrder = await Orders.create()
