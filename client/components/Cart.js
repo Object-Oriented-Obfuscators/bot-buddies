@@ -157,8 +157,8 @@ class DisconnectedCart extends Component {
                 <div id="checkoutButtonDiv">
                   <Button
                     primary
-                    onClick={() => {
-                      this.props.checkout()
+                    onClick={async () => {
+                      await this.props.checkout()
                       console.log(
                         'this.props.cart.error==>',
                         this.props.cart.error
